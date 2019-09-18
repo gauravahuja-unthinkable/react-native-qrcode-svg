@@ -88,7 +88,9 @@ export default class QRCode extends PureComponent {
      * appeared during the process of code generating.
      * Error object is passed to the callback.
      */
-    onError: PropTypes.func
+    onError: PropTypes.func,
+    /* padding around the qr code */
+    padding: PropTypes.number,
   };
 
   static defaultProps = {
