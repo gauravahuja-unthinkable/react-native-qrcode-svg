@@ -101,7 +101,8 @@ export default class QRCode extends PureComponent {
     logoMargin: 2,
     logoBorderRadius: 0,
     ecl: 'M',
-    onError: undefined
+    onError: undefined,
+    padding: 0,
   };
 
   constructor(props) {
@@ -127,10 +128,11 @@ export default class QRCode extends PureComponent {
       logoSize,
       logoMargin,
       logoBackgroundColor,
-      logoBorderRadius
+      logoBorderRadius,
+      padding,
     } = this.props;
 
-    const logoPosition = size / 2 - logoSize / 2 - logoMargin;
+    const logoPosition = size / 2 - logoSize / 2 - logoMargin + (padding / 2);
     const logoWrapperSize = logoSize + logoMargin * 2;
     const logoWrapperBorderRadius =
       logoBorderRadius + (logoBorderRadius && logoMargin);
@@ -138,7 +140,7 @@ export default class QRCode extends PureComponent {
     const {cellSize, path} = this.state;
 
     return (
-      <Svg ref={getRef} width={size} height={size}>
+      <Svg ref={getRef} width={size + padding} height={size + padding}>
         <Defs>
           <ClipPath id="clip-wrapper">
             <Rect
@@ -157,9 +159,9 @@ export default class QRCode extends PureComponent {
             />
           </ClipPath>
         </Defs>
-        <Rect width={size} height={size} fill={backgroundColor} />
+        <Rect width={size + padding} height={size + padding} fill={backgroundColor} />
         {path && cellSize && (
-          <Path d={path} stroke={color} strokeWidth={cellSize} />
+          <Path x={padding / 2} y={padding / 2} d={path} stroke={color} strokeWidth={cellSize}  />
         )}
         {logo && (
           <G x={logoPosition} y={logoPosition}>
